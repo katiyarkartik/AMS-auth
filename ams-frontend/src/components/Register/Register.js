@@ -42,11 +42,12 @@ const Register = ({ toggleLoginPage }) => {
   const handleRegister = async (e) => {
     e.preventDefault();
     console.log(employee);
-    if (true) {
+    if (validation()) {
       await authService.handleRegister(employee)
         .then((response) => {
-          console.log("Register successful", response.data);
+          console.log("Register successful", response);
           alert("successfully registered");
+          
         })
         .catch((error) => {
           console.error("Error logging in:", error);

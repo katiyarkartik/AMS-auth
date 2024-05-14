@@ -10,7 +10,7 @@ async function handleLogin(employee){
         return response;
       } catch (error) {
           console.log("auth service", error);
-          return error;
+          throw new Error(error);
       }
 }
 async function handleRegister(employee){
@@ -20,8 +20,10 @@ async function handleRegister(employee){
         return response;
       } catch (error) {
           console.log("auth service", error);
-          return error;
+          throw new Error(error);
       }
+
+    
 }
 
 
