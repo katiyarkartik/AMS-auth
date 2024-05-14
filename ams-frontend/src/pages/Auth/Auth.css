@@ -1,6 +1,4 @@
-.auth-page {
-    height: 100vh;
-}
+
 
 .auth-page-banner-section {
     background-color: #e6feed;
@@ -12,11 +10,6 @@
 
 .auth-page {
     height: 100vh;
-}
-
-.auth-banner-top-section,
-.auth-banner-bottom-section {
-    height: 10%;
 }
 
 

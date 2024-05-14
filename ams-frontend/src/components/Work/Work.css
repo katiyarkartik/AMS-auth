@@ -1,11 +1,5 @@
 
-.work-from-home> div{
-    background-color: #e6ecfe;
-}
 .work-img{
-    filter: drop-shadow(0px 0px 10px rgba(194, 206, 222, 0.856)); /* Adjust shadow size and color */
+    filter: drop-shadow(0px 0px 10px rgba(194, 206, 222, 0.856)); 
 }
-.work-from-office> div{
-    background-color: #e6feed;
 
-}

@@ -19,3 +19,29 @@ code {
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+
+
+/* Custom Colors */
+:root {
+  --main-blue-color: #396ee5; /* Green */
+  --light-blue-color: #e6ecfe; /* Orange */
+  
+  --main-green-color: #169158; /* Green */
+  --light-green-color: #e6feed; /* Orange */
+
+  --custom-heading-color: #673AB7; /* Deep Purple */
+}
+
+.bg-main-blue{
+  background-color: var( --main-blue-color);
+}
+.bg-light-blue{
+  background-color: var( --light-blue-color);
+}
+.bg-main-green{
+  background-color: var( --main-green-color);
+}
+.bg-light-green{
+  background-color: var( --light-green-color);
+}
+
