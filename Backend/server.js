@@ -19,7 +19,7 @@ mongoose.connect(mongoUrl).then(()=>{
 })
 
 app.use(express.json());
-app.use("/employee/",employeeRoutes);
+app.use("/",employeeRoutes);
 
 app.listen(PORT, () => {
   console.log(`App is running on PORT : ${PORT}`);

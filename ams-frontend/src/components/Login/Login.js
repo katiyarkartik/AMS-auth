@@ -1,33 +1,26 @@
 import React, { useState } from 'react'
-import axios from 'axios';
+import authService from '../../services/auth.js';
 import {useNavigate} from "react-router-dom";
 import "./Login.css";
 
 const Login = ({ toggleLoginPage }) => {
-
-  const [employeeEmail,setEmployeeEmail]=useState("");
-  const [employeePassword,setEmployeePassword]=useState("");
+  
   const navigate = useNavigate();
 
+  const [employee, setEmployee] = useState({employeeEmail:'',employeePassword:''});
+
   const handleLogin=async(e)=>{
-   
-    
     e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:8000/employee/login', {
-        employeeEmail,
-        employeePassword
-      });
+    
+    authService.handleLogin(employee)
+    .then((response)=>{
       console.log("Login successful", response.data);
       navigate('/work-location')
-    } catch (error) {
+    })
+    .catch((error)=>{
       console.error("Error logging in:", error);
       alert("Invalid credentials")
-
-    }
-    
-
-
+    })
 
   }
 
@@ -38,9 +31,9 @@ const Login = ({ toggleLoginPage }) => {
       <form onSubmit={handleLogin} className='w-50 login-form' >
         <h3 className='text-center py-2'>LOGIN</h3>
         <label> Email</label>
-        <input  className='w-100 p-1 mb-3' onChange={(e)=>{setEmployeeEmail(e.target.value)}}/>
+        <input  className='w-100 p-1 mb-3' onChange={(e)=>{setEmployee({...employee,[employee.employeeEmail]:e.target.value})}}/>
         <label>Password</label>
-        <input  className='w-100 p-1 mb-3' onChange={(e)=>{setEmployeePassword(e.target.value)}}/>
+        <input  className='w-100 p-1 mb-3' onChange={(e)=>{setEmployee({...employee,[employee.employeePassword]:e.target.value})}}/>
         <p className='fw-medium forgot-password'>Forgot Password ?</p>
         <input type='submit' value='Login'  className='w-100 login-btn py-1'/>
       </form>

@@ -1,10 +1,10 @@
 import express from 'express';
-import { getAllemployees ,loginemployee,registeremployee} from '../controller/employeeController.js';
+import { getAllEmployees ,loginEmployee,registerEmployee} from '../controller/employeeController.js';
 
 const router= express.Router();
 
-router.get('/',getAllemployees);
-router.post('/register',registeremployee);
-router.post('/login',loginemployee)
+router.get('/',getAllEmployees);
+router.post('/register',registerEmployee);
+router.post('/login',loginEmployee)
 
 export default router;

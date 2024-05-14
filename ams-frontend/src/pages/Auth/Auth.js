@@ -13,12 +13,11 @@ const Auth = () => {
   const toggleLoginPage=()=>{
     setLoginPage(prevState=>!prevState)
   }
+  
   return (
     <div className='auth-page w-100 d-flex position-relative '>
       <div className='ibm-logo-nav position-absolute'>
-          
           <img src={ibmLogo}  alt='Ibm logo'/>
-          
         </div>
       <div className='auth-page-banner-section col-7   '>
         
