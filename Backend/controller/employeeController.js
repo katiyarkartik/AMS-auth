@@ -3,46 +3,44 @@ import bcrypt from "bcryptjs";
 import {nanoid, customAlphabet} from "nanoid";
 import jwt from 'jsonwebtoken';
 
-export const getAllemployees = async (req, res) => {
+export const getAllEmployees = async (req, res) => {
     try {
-        const employees = await employee.find();
-        res.json(employees);
+        const employees = await employee.find({});
+        return res.json(employees);
     }
-    catch {
+    catch(error) {
         console.log("cannot find employees");
-        res.status(500).json({ message: error.message });
+        return res.status(500).json({ message: error.message });
 
     }
 }
 
-export const registeremployee = async (req, res) => {
+export const registerEmployee = async (req, res) => {
     try {
-        const { firstName, lastName, employeeId, employeeEmail, employeePassword, employeeAvatar } = req.body;
+        const { employeeFullName, employeeEmail ,employeePhoneNo,employeeAadhar, employeePassword } = req.body;
         
-        const existingemployee = await employee.findOne({ $or: [{ employeeId }, { employeeEmail }] });
+        const existingemployee = await employee.findOne({ $or: [{ employeeAadhar },{employeePhoneNo}, { employeeEmail }] });
 
         if (existingemployee) {
-            res.json("employee already exists")
+            return res.status(404).json("employee already exists")
         } else {
-
-           
-
             bcrypt.genSalt(10,(err,salt)=>{
                 bcrypt.hash(employeePassword,salt,async(err,hashedPassword)=>{
                     console.log(hashedPassword);
                     const nanoid = customAlphabet('1234567890ABCDEFGHIJKLMNOPRQSTUVWXYZ', 10)
                     const autoGenertedEmployeeId=nanoid(5);
                     const newemployee={
-                        firstName,
-                        lastName,
+                        employeeFullName,
                         employeeId:"E00" + autoGenertedEmployeeId,
                         employeeEmail,
+                        employeePhoneNo,
+                        employeeAadhar,
                         employeePassword:hashedPassword,
-                        employeeAvatar
+                        employeeAvatar:""
                     };
 
                     await employee.create(newemployee);
-                    res.json(newemployee);
+                    return res.json(newemployee);
                   
                 })
 
@@ -50,12 +48,12 @@ export const registeremployee = async (req, res) => {
           
         }
     } catch (error) {
-        res.json("Internal server error")
+        return res.status(500).json("Internal server error")
     }
 };
 
 
-export const loginemployee = async (req, res) => {
+export const loginEmployee = async (req, res) => {
     try {
         const { employeeEmail, employeePassword } = req.body;
         const employeeFound = await employee.findOne({ employeeEmail });
@@ -72,7 +70,7 @@ export const loginemployee = async (req, res) => {
            else if (result) {
                
                 const token = jwt.sign({ employeeEmail: employeeFound.employeeEmail }, 'my-secret', { expiresIn: '24h' }); 
-                return res.json({ token });
+                return res.status(200).json({ token });
 
             } else {
                 return res.status(401).json({ error: "Incorrect password" });
